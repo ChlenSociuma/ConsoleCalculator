@@ -49,10 +49,17 @@ class GetInput {                                                            // �
         String[] stringParts = reversedForSorting.split(" ", 3);
         String notReadyString = stringParts[2];
         String reversedReadyString;
-        if (notReadyString.startsWith("\"") && notReadyString.endsWith("\"") && notReadyString.length() > 1) {
+        if (notReadyString.startsWith("\"") && notReadyString.endsWith("\"") && notReadyString.length() <= 12) {
             reversedReadyString = notReadyString.replaceAll("\"", "");
             String readyString = new StringBuilder(reversedReadyString).reverse().toString();
             return readyString;
+        } else if (notReadyString.isEmpty()){
+            try {
+                throw new IOException();
+            } catch (IOException e) {
+                System.out.println("Нарушено условие для первого элемента... Завершаю работу.");
+                System.exit(0);
+            }
         } else {
             try {
                 throw new IOException();
@@ -104,6 +111,9 @@ class StringCalculator {                                                     // 
                 System.out.println("Нарушены условия для  сложения строк... Оскорблен... Завершаю работу.");
                 System.exit(0);
             }
+        } else if (clearString.length() > 10 || GetInput.getString().length() > 10) {
+            System.out.println("Нарушены условия! Убедитесь, что длинна каждой введенной строки не превышает 10 символов... Оскорблен... Завершаю работу.");
+            System.exit(0);
         } else {
             String summaryString = GetInput.getString() + clearString;
             ArrayList<String> moreThenForty = new ArrayList<>();
